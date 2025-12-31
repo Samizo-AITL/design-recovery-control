@@ -1,7 +1,3 @@
----
-title: Design Recovery Control
----
-
 # Design Recovery Control
 
 ## Overview
