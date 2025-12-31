@@ -194,7 +194,7 @@ but **must not redefine the core assumptions, boundaries, or prohibitions descri
 
 ## License
 
-[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-contller-a-type//#-license)
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/design-recovery-control//#-license)
 
 | Item | License | Description |
 |------|---------|-------------|
