@@ -135,6 +135,15 @@ but **must not redefine the core assumptions or boundaries described here**.
 
 ---
 
+## Design Intent Freeze
+
+This document fixes the conceptual definition of Design Recovery Control.
+
+Future work may extend implementations or examples,  
+but **must not redefine the core assumptions or boundaries described here**.
+
+---
+
 ## License
 
 MIT License
