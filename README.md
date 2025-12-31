@@ -180,6 +180,33 @@ but **must not redefine the core assumptions, boundaries, or prohibitions descri
 
 ---
 
+## Author
+
+| 📌 Item | Details |
+|--------|---------|
+| **Name** | Shinichi Samizo |
+| **Education** | M.S. in Electrical and Electronic Engineering, Shinshu University |
+| **Career** | Former Engineer at Seiko Epson Corporation (since 1997) |
+| **Expertise** | Semiconductor devices (logic, memory, high-voltage mixed-signal)<br>Thin-film piezo actuators for inkjet systems<br>PrecisionCore printhead productization, BOM management, ISO training |
+| **GitHub** | [![GitHub](https://img.shields.io/badge/GitHub-Samizo--AITL-blue?style=for-the-badge&logo=github)](https://github.com/Samizo-AITL) |
+
+---
+
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/aitl-contller-a-type//#-license)
+
+| Item | License | Description |
+|------|---------|-------------|
+| **Source Code** | MIT | Free to use, modify, redistribute |
+| **Text Materials** | CC BY 4.0 / CC BY-SA 4.0 | Attribution & share-alike rules |
+| **Figures & Diagrams** | CC BY-NC 4.0 | Non-commercial use |
+| **External References** | Original license applies | Cite properly |
+
+---
+
+## Feedback
+
+> Suggestions, improvements, and discussions are welcome via GitHub Discussions.
+
+[![💬 GitHub Discussions](https://img.shields.io/badge/💬%20GitHub-Discussions-brightgreen?logo=github)](https://github.com/Samizo-AITL/design-recovery-control/discussions)
