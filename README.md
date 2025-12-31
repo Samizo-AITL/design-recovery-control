@@ -3,42 +3,48 @@
 ## Overview
 
 **Design Recovery Control (DRC)** is a control architecture that addresses *system degradation*  
-by **recovering control design assumptions**, rather than directly manipulating control inputs.
+by **recovering violated control design assumptions**,  
+rather than directly manipulating control inputs or physical systems.
 
-This framework explicitly separates:
+DRC explicitly separates the following layers:
 
-- **Real-time control** (PID)
-- **State supervision** (FSM)
-- **Design recovery and reconfiguration** (LLM)
+- **Real-time control** — PID  
+- **State and safety supervision** — FSM  
+- **Design recovery and reconfiguration** — LLM  
 
-The key idea is that **LLMs should not replace controllers**,  
-but instead act as *design supervisors* when the original control assumptions are no longer valid.
+The fundamental premise of DRC is:
+
+> **Large Language Models must not replace controllers.**  
+> They act solely as *design supervisors* when original control assumptions no longer hold.
 
 ---
 
 ## Motivation
 
-Traditional control approaches focus on:
+Conventional control frameworks focus primarily on:
 
 - **Reliability Control**  
-  → preventing degradation by reducing stress (V–I, temperature, duty)
+  → Preventing degradation by reducing physical stress (V–I, temperature, duty cycle)
 
 - **Recovery Control**  
-  → restoring outputs via reset, recalibration, or fallback control
+  → Restoring output or function via reset, recalibration, or fallback logic
 
-However, many real systems fail because **the original control design assumptions drift over time**.
+However, many real-world failures occur because:
 
-Design Recovery Control targets this gap.
+> **The original control design assumptions drift or collapse over time**,  
+> even when the system remains operational.
+
+**Design Recovery Control targets this gap.**
 
 ---
 
 ## Core Concept
 
-### Control Layers
+### Layered Control Structure
 
 ```
 ┌──────────────────────────┐
-│ LLM : Design Supervisor  │  ← Design Recovery
+│ LLM : Design Supervisor  │  ← Design Recovery Control
 ├──────────────────────────┤
 │ FSM : State Management   │
 ├──────────────────────────┤
@@ -48,15 +54,19 @@ Design Recovery Control targets this gap.
 └──────────────────────────┘
 ```
 
-### What is Recovered?
+### What Is Recovered — and What Is Not
 
-- ❌ Control output
-- ❌ Control input
-- ❌ Physical degradation itself
+**DRC does NOT recover:**
 
-- ✅ **Control design assumptions**
-  - PID gains
-  - FSM transition rules
+- ❌ Control outputs  
+- ❌ Control inputs  
+- ❌ Physical degradation itself  
+
+**DRC DOES recover:**
+
+- ✅ **Control design assumptions**, including:
+  - PID gain validity
+  - FSM transition conditions
   - Operating mode definitions
 
 ---
@@ -64,21 +74,24 @@ Design Recovery Control targets this gap.
 ## Design Principles
 
 1. **LLM never touches real-time control inputs**
-2. **Safety is enforced by FSM and PID**
+2. **Safety and stability are enforced exclusively by PID and FSM**
 3. **LLM operates asynchronously and discontinuously**
-4. **Design updates are explicit, inspectable, and reversible**
+4. **All design updates are explicit, inspectable, and reversible**
+5. **Human or system-level approval may gate design changes**
 
 ---
 
 ## Relation to AITL
 
 - **AITL (Adaptive Intelligent Technology Loop)**  
-  → Architecture pattern
+  → An architectural pattern for layered intelligent control systems
 
 - **Design Recovery Control**  
-  → Control category / engineering concept
+  → A generalized *control engineering concept* defining  
+    the role and boundaries of the design supervision layer
 
-This repository provides the *generalized and formalized definition* of the design recovery layer used in AITL-based systems.
+This repository formalizes the **design recovery layer** used within AITL-based systems  
+as a domain-independent engineering concept.
 
 ---
 
@@ -87,7 +100,7 @@ This repository provides the *generalized and formalized definition* of the desi
 - Control systems with long-term parameter drift
 - Degraded physical systems (thermal, mechanical, semiconductor, MEMS)
 - Safety-critical systems where LLM real-time control is unacceptable
-- Human-in-the-loop or audit-required control redesign
+- Human-in-the-loop or audit-required control redesign workflows
 
 ---
 
@@ -101,8 +114,24 @@ This repository provides the *generalized and formalized definition* of the desi
 
 ## Status
 
-This repository focuses on **concept definition, architecture, and minimal PoC examples**.  
-Domain-specific implementations (inkjet, MEMS, semiconductor, robotics) are handled in separate repositories.
+This repository focuses on:
+
+- Concept definition
+- Architectural clarification
+- Minimal, illustrative PoC examples
+
+Domain-specific implementations  
+(inkjet, MEMS, semiconductor, robotics, etc.)  
+are intentionally handled in separate repositories.
+
+---
+
+## Design Intent Freeze
+
+This document **fixes the conceptual definition of Design Recovery Control**.
+
+Future work may **extend implementations or examples**,  
+but **must not redefine the core assumptions or boundaries described here**.
 
 ---
 
