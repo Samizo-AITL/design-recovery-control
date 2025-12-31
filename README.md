@@ -153,6 +153,24 @@ are intentionally handled in **separate repositories**.
 
 ---
 
+## Documentation
+
+- [Design Variables](docs/design_variables.md)
+- [Design Recovery Workflow](docs/recovery_workflow.md)
+- [Failure Modes](docs/failure_modes.md)
+- [Comparison: DRC vs RL vs LLM Control](docs/comparison_rl_llm_control.md)
+- [FAQ](docs/faq.md)
+- [Audit Checklist](docs/audit_checklist.md)
+- [LLM Prompt Template](docs/llm_prompt_template.md)
+
+---
+
+## Proof of Concept (PoC)
+
+- [Minimal Design Proposal PoC (Python)](poc/drc_design_proposal.py)
+
+---
+
 ## Design Intent Freeze
 
 This document **fixes the conceptual definition of Design Recovery Control**.
@@ -164,4 +182,4 @@ but **must not redefine the core assumptions, boundaries, or prohibitions descri
 
 ## License
 
-MIT License
+This project is licensed under the [MIT License](LICENSE).
