@@ -1,3 +1,7 @@
+---
+title: Design Recovery Control
+---
+
 # Design Recovery Control
 
 ## Overview
@@ -15,7 +19,7 @@ DRC explicitly separates the following layers:
 The fundamental premise of DRC is:
 
 > **Large Language Models must not replace controllers.**  
-> They act solely as *design supervisors* when original control assumptions no longer hold.
+> They operate strictly as *design supervisors* when original control assumptions no longer hold.
 
 ---
 
@@ -34,7 +38,7 @@ However, many real-world failures occur because:
 > **The original control design assumptions drift or collapse over time**,  
 > even when the system remains operational.
 
-**Design Recovery Control targets this gap.**
+**Design Recovery Control explicitly targets this gap.**
 
 ---
 
@@ -71,6 +75,27 @@ However, many real-world failures occur because:
 
 ---
 
+## Scope of Design Recovery
+
+The LLM is permitted to modify **design-level artifacts only**, including:
+
+- PID gain sets *(Kp, Ki, Kd)* **within predefined bounds**
+- FSM transition conditions and thresholds
+- Operating mode definitions and annotations
+
+The LLM is **explicitly prohibited** from:
+
+- Injecting or modifying control signals
+- Accessing real-time control loops
+- Altering execution timing or scheduling
+- Bypassing FSM safety guards
+- Performing continuous or autonomous online control
+
+All LLM-generated changes must be **explicit, inspectable, and reversible**,  
+and may require **human or system-level approval** before deployment.
+
+---
+
 ## Design Principles
 
 1. **LLM never touches real-time control inputs**
@@ -87,11 +112,12 @@ However, many real-world failures occur because:
   → An architectural pattern for layered intelligent control systems
 
 - **Design Recovery Control**  
-  → A generalized *control engineering concept* defining  
-    the role and boundaries of the design supervision layer
+  → A domain-independent *control engineering concept*  
+    defining the role and boundaries of the design supervision layer
 
-This repository formalizes the **design recovery layer** used within AITL-based systems  
-as a domain-independent engineering concept.
+This repository **formalizes the design recovery layer**  
+used within AITL-based systems,  
+without binding it to any specific application domain.
 
 ---
 
@@ -112,17 +138,18 @@ as a domain-independent engineering concept.
 
 ---
 
-## Status
+## Repository Scope
 
 This repository focuses on:
 
 - Concept definition
 - Architectural clarification
-- Minimal, illustrative PoC examples
+- Boundary and responsibility specification
+- Minimal, illustrative PoC references (non-real-time)
 
 Domain-specific implementations  
 (inkjet, MEMS, semiconductor, robotics, etc.)  
-are intentionally handled in separate repositories.
+are intentionally handled in **separate repositories**.
 
 ---
 
@@ -131,16 +158,7 @@ are intentionally handled in separate repositories.
 This document **fixes the conceptual definition of Design Recovery Control**.
 
 Future work may **extend implementations or examples**,  
-but **must not redefine the core assumptions or boundaries described here**.
-
----
-
-## Design Intent Freeze
-
-This document fixes the conceptual definition of Design Recovery Control.
-
-Future work may extend implementations or examples,  
-but **must not redefine the core assumptions or boundaries described here**.
+but **must not redefine the core assumptions, boundaries, or prohibitions described here**.
 
 ---
 
