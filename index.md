@@ -1,5 +1,6 @@
 ---
-title: Design Recovery Control
+title: "Design Recovery Control"
+description: "recovering violated control design assumptions"
 ---
 
 # Design Recovery Control
