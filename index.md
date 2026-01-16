@@ -193,7 +193,7 @@ but **must not redefine the core assumptions, boundaries, or prohibitions descri
 
 ## License
 
-[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/design-recovery-control//#-license)
+[![Hybrid License](https://img.shields.io/badge/license-Hybrid-blueviolet)](https://samizo-aitl.github.io/design-recovery-control/#---license)
 
 | 📌 Item | License | Description |
 |--------|---------|-------------|
