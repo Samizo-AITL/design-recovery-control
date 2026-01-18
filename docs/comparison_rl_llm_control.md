@@ -1,5 +1,6 @@
 ---
-title: Comparison of DRC, RL-Based Control, and LLM-Based Control
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # Comparison of Design Recovery Control, RL-Based Control, and LLM-Based Control
