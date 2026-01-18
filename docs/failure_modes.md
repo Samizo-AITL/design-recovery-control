@@ -3,195 +3,207 @@ title: "design-recovery-control"
 description: "recovering violated control design assumptions"
 ---
 
-# Failure Modes Addressed by Design Recovery Control (DRC)
+# ⚠ Failure Modes Addressed by Design Recovery Control (DRC)
 
-## Purpose
+---
+
+## 🎯 Purpose
 
 This document defines **which failure modes are explicitly addressed**  
 by **Design Recovery Control (DRC)**  
 and **which are explicitly out of scope**.
 
-The goal is to prevent misinterpretation of DRC  
-as a general-purpose fault recovery or AI control framework.
+Its purpose is to prevent misinterpretation of DRC  
+as a general-purpose fault recovery, adaptive control,  
+or AI-based control framework.
 
 ---
 
-## Fundamental Distinction
+## 🔑 Fundamental Distinction
 
-> **DRC addresses design assumption failures, not physical failures.**
+> **Design Recovery Control addresses _design assumption failures_,  
+> not physical or execution failures.**
 
-A failure mode is considered relevant to DRC **only if**:
+A failure mode is considered **within the scope of DRC only if**:
 
-- The physical system remains operational
-- Control execution is still possible
-- Safety mechanisms are intact
-- Original **control design assumptions are no longer valid**
+- ⚙ The physical system remains operational  
+- ⏱ Control execution is still possible  
+- 🛡 Safety mechanisms remain intact  
+- 📐 **Original control design assumptions are no longer valid**
+
+If any of the above conditions are not satisfied,  
+the failure is **outside the scope of DRC**.
 
 ---
 
-## Failure Modes Addressed by DRC
+## ✅ Failure Modes Addressed by DRC
 
-### 1. Control Design Assumption Drift
+---
 
-Description:
+### 1️⃣ Control Design Assumption Drift
+
+**Description**
 
 - Gradual mismatch between assumed and actual system behavior
 - No single catastrophic event
-- Performance degradation accumulates over time
+- Degradation accumulates over time
 
-Examples:
+**Examples**
 
 - PID gains tuned for outdated dynamics
 - Environmental conditions exceeding original assumptions
 - Aging effects altering response characteristics
 
-Why DRC applies:
+**Why DRC Applies**
 
-- Control logic still functions
-- Design parameters, not execution, are incorrect
+- Control execution remains correct
+- Design parameters and assumptions are no longer valid
 
 ---
 
-### 2. Mode Boundary Misalignment
+### 2️⃣ Mode Boundary Misalignment
 
-Description:
+**Description**
 
 - FSM mode boundaries no longer reflect actual operating regions
-- Frequent or oscillatory mode transitions
+- Excessive or oscillatory mode transitions occur
 
-Examples:
+**Examples**
 
 - Nominal ↔ degraded mode chattering
 - Safety margins triggered too early or too late
 
-Why DRC applies:
+**Why DRC Applies**
 
-- FSM structure is valid
-- Transition conditions are poorly aligned with reality
+- FSM structure is sound
+- Transition conditions are misaligned with reality
 
 ---
 
-### 3. Degradation-Induced Performance Collapse (Non-Catastrophic)
+### 3️⃣ Degradation-Induced Performance Collapse  
+*(Non-Catastrophic)*
 
-Description:
+**Description**
 
 - Output quality or response time degrades
 - System remains stable and controllable
 
-Examples:
+**Examples**
 
 - Increased settling time
 - Overshoot beyond expected margins
 - Reduced tracking accuracy
 
-Why DRC applies:
+**Why DRC Applies**
 
-- Control execution is correct
+- Control loops execute correctly
 - Design expectations are violated
 
 ---
 
-### 4. Incomplete or Obsolete Design Knowledge
+### 4️⃣ Incomplete or Obsolete Design Knowledge
 
-Description:
+**Description**
 
 - Original design lacks coverage for newly observed behaviors
 - Edge cases emerge during long-term operation
 
-Examples:
+**Examples**
 
 - New operating regimes due to usage changes
 - Previously unseen interaction effects
 
-Why DRC applies:
+**Why DRC Applies**
 
 - Design documentation and assumptions require update
-- Not a runtime fault
+- This is a design deficiency, not a runtime fault
 
 ---
 
-## Failure Modes Explicitly NOT Addressed by DRC
+## 🚫 Failure Modes Explicitly NOT Addressed by DRC
 
-### 1. Physical Component Failure
+---
 
-Examples:
+### ❌ 1. Physical Component Failure
+
+**Examples**
 
 - Actuator failure
 - Sensor loss or corruption
 - Structural damage
 - Electrical short or open circuits
 
-Handled by:
+**Handled By**
 
 - Fault detection and isolation (FDI)
 - Hardware redundancy
-- Maintenance and repair
+- Maintenance and repair processes
 
 ---
 
-### 2. Real-Time Control Instability
+### ❌ 2. Real-Time Control Instability
 
-Examples:
+**Examples**
 
 - Unstable control loops
 - Missed deadlines
 - Numerical overflow
 - Timing violations
 
-Handled by:
+**Handled By**
 
-- Control design
+- Control design and validation
 - Real-time systems engineering
 - FSM safety intervention
 
 ---
 
-### 3. Safety-Critical Emergencies
+### ❌ 3. Safety-Critical Emergencies
 
-Examples:
+**Examples**
 
 - Runaway conditions
 - Hard safety limit violations
-- Immediate hazard conditions
+- Immediate hazard states
 
-Handled by:
+**Handled By**
 
 - FSM emergency states
 - Hardware interlocks
 - Emergency shutdown procedures
 
-DRC must **never** intervene in these cases.
+🚫 **DRC must never intervene in these cases.**
 
 ---
 
-### 4. Reliability or Lifetime Optimization
+### ❌ 4. Reliability or Lifetime Optimization
 
-Examples:
+**Examples**
 
 - Stress minimization
 - Wear balancing
 - Energy efficiency optimization
 
-Handled by:
+**Handled By**
 
 - Reliability engineering
 - Lifetime management frameworks
 
 ---
 
-### 5. Autonomous Self-Learning Control
+### ❌ 5. Autonomous Self-Learning Control
 
-Examples:
+**Examples**
 
 - Online reinforcement learning
 - Continuous adaptive control
 - Self-modifying control logic
 
-Explicitly excluded from DRC.
+🚫 **Explicitly excluded from DRC.**
 
 ---
 
-## Failure Classification Summary
+## 📊 Failure Classification Summary
 
 | Failure Type | Addressed by DRC |
 |-------------|------------------|
@@ -206,22 +218,23 @@ Explicitly excluded from DRC.
 
 ---
 
-## Design Intent Freeze
+## 🔒 Design Intent Freeze
 
 This document **fixes the definition of failure modes**  
-that fall within the scope of Design Recovery Control.
+that fall within the authority of Design Recovery Control.
 
 Any system claiming to implement DRC  
 **must not extend its authority beyond these boundaries**.
 
 ---
 
-## Legal and Safety Note
+## ⚖ Legal and Safety Notice
 
-Misclassification of physical or safety-critical failures  
+Misclassifying physical failures, execution faults,  
+or safety-critical emergencies  
 as design recovery problems  
 **constitutes a violation of the DRC concept**.
 
 ---
 
-End of document.
+*End of document.*
