@@ -1,5 +1,6 @@
 ---
-title: Failure Modes Addressed by Design Recovery Control
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # Failure Modes Addressed by Design Recovery Control (DRC)
