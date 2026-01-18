@@ -3,13 +3,13 @@ title: "design-recovery-control"
 description: "recovering violated control design assumptions"
 ---
 
-# FAQ — Design Recovery Control (DRC)
+# ❓ FAQ — Design Recovery Control (DRC)
 
 This document addresses **frequent misunderstandings and boundary violations**  
-related to Design Recovery Control (DRC).
+related to **Design Recovery Control (DRC)**.
 
 If a question is not answered here,  
-it likely indicates a misunderstanding of the DRC concept.
+it usually indicates a misunderstanding of the DRC concept itself.
 
 ---
 
@@ -19,9 +19,9 @@ it likely indicates a misunderstanding of the DRC concept.
 
 DRC does **not** perform control.
 
-- It does not generate control inputs
-- It does not replace controllers
-- It does not execute in real time
+- 🚫 It does not generate control inputs  
+- 🚫 It does not replace controllers  
+- 🚫 It does not execute in real time  
 
 DRC supervises **control design assumptions only**.
 
@@ -33,9 +33,9 @@ DRC supervises **control design assumptions only**.
 
 In DRC:
 
-- PID controls the system
-- FSM enforces safety and state logic
-- LLM operates **offline and asynchronously**
+- ⏱ **PID** controls the system  
+- 🔄 **FSM** enforces safety and state logic  
+- 🧠 **LLM** operates **offline and asynchronously**  
 
 Any system where an LLM directly influences actuator commands  
 **is not DRC**.
@@ -46,14 +46,14 @@ Any system where an LLM directly influences actuator commands
 
 **No.**
 
-Adaptive control modifies control behavior **online**  
-based on observed dynamics.
+Adaptive control:
+- modifies control behavior **online**
+- adapts continuously to observed dynamics
 
 DRC:
-
-- Does not adapt online
-- Does not self-learn
-- Does not modify controllers autonomously
+- ❌ does not adapt online  
+- ❌ does not self-learn  
+- ❌ does not autonomously modify controllers  
 
 DRC updates **design artifacts**, not execution logic.
 
@@ -63,17 +63,11 @@ DRC updates **design artifacts**, not execution logic.
 
 **No.**
 
-Reinforcement learning:
-
-- Learns policies
-- Optimizes reward functions
-- Directly outputs actions
-
-DRC:
-
-- Does not learn policies
-- Does not optimize rewards
-- Does not output actions
+| Aspect | DRC | RL |
+|------|-----|----|
+| Learns policies | ❌ | ✅ |
+| Optimizes rewards | ❌ | ✅ |
+| Outputs actions | ❌ | ✅ |
 
 The two approaches are **conceptually incompatible**.
 
@@ -85,12 +79,12 @@ The two approaches are **conceptually incompatible**.
 
 DRC does not address:
 
-- Actuator failure
-- Sensor failure
-- Structural damage
-- Electrical faults
+- actuator failure  
+- sensor failure  
+- structural damage  
+- electrical faults  
 
-These are handled by maintenance, redundancy, or fault isolation.
+These are handled by **maintenance, redundancy, or fault isolation**.
 
 ---
 
@@ -98,10 +92,10 @@ These are handled by maintenance, redundancy, or fault isolation.
 
 DRC is activated when:
 
-- Control performance degrades
-- Design assumptions no longer hold
-- The system remains operational
-- Safety margins are still intact
+- 📉 control performance degrades  
+- 📐 design assumptions no longer hold  
+- ⚙ the system remains operational  
+- 🛡 safety margins are still intact  
 
 DRC is **not** an emergency response mechanism.
 
@@ -113,12 +107,12 @@ DRC is **not** an emergency response mechanism.
 
 DRC is:
 
-- Event-driven or periodically invoked
-- Discrete and non-continuous
-- Explicitly triggered
+- 🔔 event-driven or periodically invoked  
+- ⏱ discrete and non-continuous  
+- 🧭 explicitly triggered  
 
 Continuous or high-frequency invocation  
-violates DRC principles.
+**violates DRC principles**.
 
 ---
 
@@ -128,24 +122,23 @@ violates DRC principles.
 
 DRC supports:
 
-- Human-in-the-loop review
-- Audit trails
-- Approval gating
+- 👤 human-in-the-loop review  
+- 🧾 audit trails  
+- 🔐 approval gating  
 
-Fully autonomous self-deployment  
-is **not permitted** by design.
+🚫 Fully autonomous self-deployment is **not permitted**.
 
 ---
 
 ## Q9. Can DRC change the structure of the controller or FSM?
 
-**No, unless explicitly approved outside the DRC process.**
+**No — unless explicitly approved outside the DRC process.**
 
 By default:
 
-- Controller structure is fixed
-- FSM topology is fixed
-- Only parameters and assumptions may change
+- controller structure is fixed  
+- FSM topology is fixed  
+- only parameters and assumptions may change  
 
 Structural redesign is **out of scope** for DRC.
 
@@ -155,11 +148,11 @@ Structural redesign is **out of scope** for DRC.
 
 **Yes — by design.**
 
-DRC was explicitly created to:
+DRC was created to:
 
-- Preserve deterministic control
-- Maintain inspectability
-- Enable certification workflows
+- 🛡 preserve deterministic control  
+- 🔍 maintain inspectability  
+- 📜 support certification workflows  
 
 It avoids the risks of real-time AI control.
 
@@ -169,11 +162,11 @@ It avoids the risks of real-time AI control.
 
 **Not at the same control layer.**
 
-- RL or AI control may exist in separate systems
-- DRC must not supervise AI controllers
-- Layer boundaries must remain strict
+- RL or AI control may exist elsewhere  
+- DRC must not supervise AI controllers  
+- 🔒 layer boundaries must remain strict  
 
-Mixing control authority invalidates DRC.
+Mixing control authority **invalidates DRC**.
 
 ---
 
@@ -181,10 +174,10 @@ Mixing control authority invalidates DRC.
 
 Because:
 
-- Design assumptions are expressed in language
-- Long-term degradation is context-rich
-- Human-like design reasoning is required
-- Outputs must be inspectable and explainable
+- design assumptions are expressed in language  
+- long-term degradation is context-rich  
+- human-like design reasoning is required  
+- outputs must be inspectable and explainable  
 
 The LLM replaces **design review effort**,  
 not control execution.
@@ -195,17 +188,15 @@ not control execution.
 
 **No.**
 
-DRC is domain-independent.
+DRC is domain-independent and applies to:
 
-It applies to:
+- mechanical systems  
+- thermal systems  
+- semiconductor processes  
+- MEMS  
+- robotics  
 
-- Mechanical systems
-- Thermal systems
-- Semiconductor processes
-- MEMS
-- Robotics
-
-Domain-specific implementations belong elsewhere.
+Domain-specific implementations belong in **separate repositories**.
 
 ---
 
@@ -213,10 +204,9 @@ Domain-specific implementations belong elsewhere.
 
 **No.**
 
-Safety limits are enforced by FSM and hardware interlocks.
-
-DRC may **propose** revised assumptions,  
-but must not override safety constraints.
+- safety limits are enforced by FSM and hardware interlocks  
+- DRC may **propose** revised assumptions  
+- DRC must **never override** safety constraints  
 
 ---
 
@@ -224,16 +214,16 @@ but must not override safety constraints.
 
 Any system that:
 
-- Allows LLMs to control actuators
-- Performs online self-learning control
-- Bypasses FSM safety logic
-- Blurs design and execution layers
+- allows LLMs to control actuators  
+- performs online self-learning control  
+- bypasses FSM safety logic  
+- blurs design and execution layers  
 
 **must not be described as Design Recovery Control.**
 
 ---
 
-## Design Intent Freeze
+## 🔒 Design Intent Freeze
 
 This FAQ **fixes the interpretation boundaries**  
 of Design Recovery Control.
@@ -243,4 +233,4 @@ but **must not weaken or expand the authority defined here**.
 
 ---
 
-End of document.
+*End of document.*
