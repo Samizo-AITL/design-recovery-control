@@ -3,128 +3,137 @@ title: "design-recovery-control"
 description: "recovering violated control design assumptions"
 ---
 
-# Comparison of Design Recovery Control, RL-Based Control, and LLM-Based Control
-
-## Purpose
-
-This document provides a **strict and unambiguous comparison** between:
-
-- **Design Recovery Control (DRC)**
-- **Reinforcement Learning (RL)-based control**
-- **LLM-based control systems**
-
-The goal is to **prevent conceptual mixing**,  
-especially in safety-critical or engineering-reviewed contexts.
+# 📊 Comparison  
+## Design Recovery Control vs RL-Based Control vs LLM-Based Control
 
 ---
 
-## Fundamental Conceptual Difference
+## 🎯 Purpose
 
-> **The key difference is *what is being controlled*.**
+This document provides a **strict, explicit, and non-negotiable comparison** between:
 
-| Framework | What It Directly Controls |
-|---------|---------------------------|
-| DRC | **Control design assumptions** |
-| RL-based control | Control inputs or policies |
-| LLM-based control | Control decisions or actions |
+- 🛠 **Design Recovery Control (DRC)**
+- 🔁 **Reinforcement Learning (RL)–based control**
+- 🧠 **LLM-based control systems**
+
+Its purpose is to **prevent conceptual mixing**,  
+especially in **safety-critical, audited, or certified engineering contexts**.
 
 ---
 
-## Architectural Comparison
+## 🔑 Fundamental Conceptual Difference
 
-| Aspect | DRC | RL-Based Control | LLM-Based Control |
-|------|-----|-----------------|------------------|
+> **The decisive difference is *what is being controlled*.**
+
+| Framework | What Is Directly Controlled |
+|---------|-----------------------------|
+| 🛠 **DRC** | **Control design assumptions** |
+| 🔁 RL-based control | Control inputs or learned policies |
+| 🧠 LLM-based control | Control decisions or actions |
+
+This distinction is architectural, not stylistic.
+
+---
+
+## 🧩 Architectural Comparison
+
+| Aspect | 🛠 DRC | 🔁 RL-Based Control | 🧠 LLM-Based Control |
+|------|-------|--------------------|--------------------|
 | Real-time control | PID / FSM only | Learned policy | LLM inference |
+| Learning element | None | Central | Central |
 | LLM role | Design supervisor only | None | Primary controller |
 | Execution timing | Asynchronous, discrete | Continuous / online | Continuous or event-driven |
-| Safety authority | PID + FSM | External or learned | Often implicit |
-| Determinism | Deterministic control | Often stochastic | Non-deterministic |
+| Safety authority | PID + FSM (explicit) | External or learned | Often implicit |
+| Determinism | Deterministic | Often stochastic | Non-deterministic |
 | Inspectability | Full | Partial | Low |
-| Certification suitability | High | Low–Medium | Very low |
+| Certification suitability | **High** | Low–Medium | **Very low** |
 
 ---
 
-## Control Authority Boundary
+## 🔒 Control Authority Boundary
 
-### Design Recovery Control (DRC)
+### 🛠 Design Recovery Control (DRC)
 
-- LLM **never** touches:
-  - Control inputs
-  - Actuator commands
-  - Real-time execution
+- The LLM **never** touches:
+  - control inputs,
+  - actuator commands,
+  - real-time execution paths.
 
-- LLM **only** modifies:
-  - Design parameters
-  - Assumptions
-  - Configuration artifacts
+- The LLM **only** modifies:
+  - design parameters,
+  - design assumptions,
+  - configuration artifacts.
 
-👉 Control authority remains **fully classical**.
-
----
-
-### Reinforcement Learning–Based Control
-
-- Policy directly outputs control actions
-- Control logic is learned, not explicitly designed
-- Safety often handled via constraints or wrappers
-
-Risks:
-
-- Policy opacity
-- Distribution shift sensitivity
-- Certification difficulty
+👉 **Control authority remains fully classical and deterministic.**
 
 ---
 
-### LLM-Based Control
+### 🔁 Reinforcement Learning–Based Control
 
-- LLM reasons about actions or commands
-- Often lacks strict real-time guarantees
+- Learned policy directly outputs control actions
+- Control logic is implicit and learned
+- Safety is typically enforced via constraints or wrappers
+
+⚠ Common risks:
+- policy opacity,
+- distribution shift sensitivity,
+- certification difficulty.
+
+---
+
+### 🧠 LLM-Based Control
+
+- LLM reasons about commands or actions
+- Real-time guarantees are weak or absent
 - Output variability is intrinsic
 
-Risks:
-
-- Non-deterministic behavior
-- Hallucination under uncertainty
-- Incompatible with hard safety constraints
+⚠ Common risks:
+- non-deterministic behavior,
+- hallucination under uncertainty,
+- incompatibility with hard safety constraints.
 
 ---
 
-## Learning vs Recovery
+## 🔄 Learning vs Recovery
 
-| Concept | DRC | RL | LLM Control |
-|-------|-----|----|-------------|
-| Online learning | ❌ No | ✅ Yes | Sometimes |
-| Self-modifying behavior | ❌ No | ✅ Yes | Often |
+| Concept | 🛠 DRC | 🔁 RL | 🧠 LLM Control |
+|-------|-------|------|---------------|
+| Online learning | ❌ No | ✅ Yes | ⚠ Sometimes |
+| Self-modifying behavior | ❌ No | ✅ Yes | ❌ Often |
 | Design intent preservation | ✅ Yes | ❌ No | ❌ No |
 | Assumption recovery | ✅ Yes | ❌ No | ❌ No |
 
+DRC restores **design validity**,  
+not behavior.
+
 ---
 
-## Failure Handling Philosophy
+## ⚠ Failure Handling Philosophy
 
-### DRC
+### 🛠 DRC
 
 - Assumes:
-  - Physical system still operational
-  - Control logic still valid
-- Fixes:
-  - Broken design assumptions
-
-### RL / LLM Control
-
-- Often attempts to:
-  - Adapt behavior directly
-  - Learn new control policies
-
-This difference is **fundamental and irreconcilable**.
+  - the physical system remains operational,
+  - the control structure is still meaningful.
+- Repairs:
+  - violated **design assumptions**.
 
 ---
 
-## Safety and Certification Perspective
+### 🔁 RL / 🧠 LLM Control
 
-| Criterion | DRC | RL | LLM Control |
-|---------|-----|----|-------------|
+- Attempts to:
+  - adapt behavior directly,
+  - learn new control policies.
+
+🚫 These philosophies are **fundamentally irreconcilable**.
+
+---
+
+## 🛡 Safety and Certification Perspective
+
+| Criterion | 🛠 DRC | 🔁 RL | 🧠 LLM Control |
+|---------|-------|------|---------------|
 | Real-time determinism | ✅ | ❌ | ❌ |
 | Explicit safety guards | ✅ FSM | ⚠ Optional | ❌ Rare |
 | Auditability | ✅ | ⚠ Partial | ❌ |
@@ -133,48 +142,49 @@ This difference is **fundamental and irreconcilable**.
 
 ---
 
-## When Each Approach Is Appropriate
+## 🧭 When Each Approach Is Appropriate
 
-### Use DRC when:
-
-- Safety certification is required
-- Long-term degradation occurs
-- Human review is mandatory
-- Design intent must be preserved
-
-### Use RL when:
-
-- Environment is well-bounded
-- Exploration is acceptable
-- Safety risk is low or mitigated
-
-### Use LLM Control when:
-
-- System is non-critical
-- High-level autonomy is desired
-- Failure consequences are minimal
+### Use 🛠 DRC when:
+- safety certification is required,
+- long-term degradation occurs,
+- human review is mandatory,
+- design intent must be preserved.
 
 ---
 
-## Explicit Non-Equivalence Statement
+### Use 🔁 RL when:
+- the environment is well-bounded,
+- exploration is acceptable,
+- safety risk is low or externally mitigated.
+
+---
+
+### Use 🧠 LLM-Based Control when:
+- the system is non-critical,
+- high-level autonomy is desired,
+- failure consequences are minimal.
+
+---
+
+## 🚫 Explicit Non-Equivalence Statement
 
 > **Design Recovery Control is NOT a form of reinforcement learning.**  
 > **Design Recovery Control is NOT an LLM-based controller.**
 
-Any system that allows an LLM or RL agent  
+Any system that allows an RL agent or LLM  
 to directly influence control inputs  
 **must not be described as DRC**.
 
 ---
 
-## Design Intent Freeze
+## 🔒 Design Intent Freeze
 
-This comparison **fixes the conceptual boundaries**  
+This document **fixes the conceptual boundaries**  
 between DRC, RL-based control, and LLM-based control.
 
 Future documents may expand examples,  
-but **must not blur or merge these categories**.
+but **must not blur, merge, or reinterpret these categories**.
 
 ---
 
-End of document.
+*End of document.*
