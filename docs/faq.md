@@ -1,5 +1,6 @@
 ---
-title: Frequently Asked Questions (FAQ)
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # FAQ — Design Recovery Control (DRC)
