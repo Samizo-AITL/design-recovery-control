@@ -1,5 +1,6 @@
 ---
-title: Design Variables for Design Recovery Control
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # Design Variables for Design Recovery Control (DRC)
