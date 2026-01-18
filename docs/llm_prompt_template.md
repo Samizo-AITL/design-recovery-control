@@ -1,5 +1,6 @@
 ---
-title: LLM Prompt Template for Design Recovery Control
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # LLM Prompt Template — Design Recovery Control (DRC)
