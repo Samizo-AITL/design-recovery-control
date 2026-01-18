@@ -1,5 +1,6 @@
 ---
-title: Design Recovery Workflow
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # Design Recovery Workflow for Design Recovery Control (DRC)
