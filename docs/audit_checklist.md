@@ -1,5 +1,6 @@
 ---
-title: Audit and Compliance Checklist for Design Recovery Control
+title: "design-recovery-control"
+description: "recovering violated control design assumptions"
 ---
 
 # Audit & Compliance Checklist — Design Recovery Control (DRC)
