@@ -3,207 +3,220 @@ title: "design-recovery-control"
 description: "recovering violated control design assumptions"
 ---
 
-# Design Recovery Workflow for Design Recovery Control (DRC)
-
-## Purpose
-
-This document defines **when**, **how**, and **under what constraints**  
-Design Recovery Control (DRC) is activated and executed.
-
-It specifies the **end-to-end workflow**  
-from degradation detection to approved design update deployment.
+# 🔄 Design Recovery Workflow  
+## Design Recovery Control (DRC)
 
 ---
 
-## Fundamental Principle
+## 🎯 Purpose
+
+This document defines **when**, **how**, and **under what constraints**  
+**Design Recovery Control (DRC)** is activated and executed.
+
+It specifies the **end-to-end, auditable workflow**  
+from degradation detection to **approved deployment of design updates**.
+
+---
+
+## 🔑 Fundamental Principle
 
 > **Design Recovery is a discrete, supervised, and non-real-time process.**
 
-At no point does Design Recovery Control participate  
-in continuous control execution.
+At no point does Design Recovery Control:
+
+- participate in continuous control execution,
+- interfere with real-time control loops,
+- replace PID or FSM authority.
 
 ---
 
-## Trigger Conditions
+## 🔔 Trigger Conditions
 
 Design Recovery Control is initiated when **one or more** of the following occur:
 
-- Control performance deviates beyond acceptable margins
-- Stability assumptions no longer hold
-- FSM transitions occur more frequently than expected
-- Repeated fallback or safe-mode activation is observed
-- Long-term drift in physical or environmental conditions is detected
+- 📉 control performance deviates beyond acceptable margins  
+- 📐 stability or design assumptions no longer hold  
+- 🔄 FSM transitions occur more frequently than expected  
+- 🛑 repeated fallback or safe-mode activation is observed  
+- ⏳ long-term drift in physical or environmental conditions is detected  
 
 Triggers may originate from:
 
-- FSM supervision logic
-- Offline performance monitors
-- Human operator requests
-- Periodic audit or inspection cycles
+- 🔄 FSM supervision logic  
+- 📊 offline performance monitors  
+- 👤 human operator requests  
+- 🧾 periodic audit or inspection cycles  
 
 ---
 
-## High-Level Workflow
+## 🧭 High-Level Workflow
 
 ```
 [ Degradation Detected ]
-            ↓
+↓
 [ Assumption Violation Identified ]
-            ↓
+↓
 [ Design Recovery Invocation ]
-            ↓
+↓
 [ LLM Design Analysis ]
-            ↓
+↓
 [ Design Change Proposal ]
-            ↓
+↓
 [ Validation & Approval ]
-            ↓
-[ Deployment ]
+↓
+[ Controlled Deployment ]
 ```
 
----
 
-## Step-by-Step Process
-
-### Step 1: Degradation Detection
-
-- PID and FSM continue operating normally
-- No control interruption occurs
-- Detection mechanisms flag potential assumption violations
-
-Examples:
-
-- Increased overshoot despite stable gains
-- Extended settling time
-- Unexpected mode oscillation
+This workflow is **strictly linear and gated**.
 
 ---
 
-### Step 2: Assumption Violation Identification
+## 🪜 Step-by-Step Process
 
-The system identifies which **design assumptions** may be invalid:
+---
 
-- Gain range no longer adequate
-- Mode boundaries overlap
-- FSM transition thresholds misaligned with current behavior
+### 1️⃣ Step 1: Degradation Detection
+
+- ⏱ PID and FSM continue operating normally  
+- 🚫 No control interruption occurs  
+- 🔔 Detection mechanisms flag potential assumption violations  
+
+**Examples**
+
+- increased overshoot despite stable gains  
+- extended settling time  
+- unexpected FSM mode oscillation  
+
+---
+
+### 2️⃣ Step 2: Assumption Violation Identification
+
+The system identifies **which control design assumptions** may be invalid:
+
+- gain ranges no longer adequate  
+- mode boundaries overlapping  
+- FSM transition thresholds misaligned  
 
 This step produces a **structured problem description**,  
-not a control action.
+**not a control action**.
 
 ---
 
-### Step 3: Design Recovery Invocation
+### 3️⃣ Step 3: Design Recovery Invocation
 
-- Design Recovery Control is explicitly invoked
-- Invocation is logged and time-stamped
-- LLM operates **asynchronously**
+- 🔔 Design Recovery Control is explicitly invoked  
+- 🧾 Invocation is logged and time-stamped  
+- 🧠 LLM is engaged **asynchronously**  
 
 At this stage:
 
-- Real-time control continues uninterrupted
-- FSM safety authority remains absolute
+- ⏱ real-time control continues uninterrupted  
+- 🛡 FSM safety authority remains absolute  
 
 ---
 
-### Step 4: LLM Design Analysis
+### 4️⃣ Step 4: LLM Design Analysis
 
-The LLM performs **offline design reasoning** only:
+The LLM performs **offline design reasoning only**:
 
-- Reviews current design variables
-- Analyzes historical performance data
-- Identifies violated assumptions
-- Generates alternative design configurations
+- reviews current design variables  
+- analyzes historical performance data  
+- identifies violated assumptions  
+- generates alternative design configurations  
 
-The LLM **does not**:
+The LLM **must not**:
 
-- Access live control signals
-- Execute simulations
-- Modify running systems
+- access live control signals  
+- execute simulations  
+- modify running systems  
 
 ---
 
-### Step 5: Design Change Proposal
+### 5️⃣ Step 5: Design Change Proposal
 
-LLM outputs a **design proposal document** containing:
+The LLM outputs a **design proposal document** containing:
 
-- Proposed design variable changes
-- Rationale for each change
-- Expected impact on control behavior
-- Risk and safety considerations
+- proposed design variable changes  
+- rationale for each change  
+- expected impact on control behavior  
+- risk and safety considerations  
 
 All outputs are:
 
-- Human-readable
-- Versioned
-- Traceable
+- 📄 human-readable  
+- 🏷 versioned  
+- 🔍 fully traceable  
 
 ---
 
-### Step 6: Validation and Approval
+### 6️⃣ Step 6: Validation and Approval
 
-Before deployment, proposals undergo:
+Before deployment, all proposals undergo:
 
-- Rule-based constraint checking
-- Safety and boundary verification
-- Optional simulation or offline testing
-- Human or system-level approval
+- 📐 rule-based constraint checking  
+- 🛡 safety and boundary verification  
+- 🧪 optional offline simulation or testing  
+- 👤 human or system-level approval  
 
-Approval mechanisms are **external** to the LLM.
+Approval mechanisms are **external to the LLM**.
 
 ---
 
-### Step 7: Deployment
+### 7️⃣ Step 7: Controlled Deployment
 
-- Approved design changes are deployed
-- Deployment occurs at controlled update points
-- FSM enforces safe transition during updates
+- ✅ approved design changes are deployed  
+- 📦 deployment occurs at controlled update points  
+- 🔄 FSM enforces safe transition during updates  
 
 If validation fails:
 
-- Proposal is rejected
-- System continues with existing design
+- ❌ the proposal is rejected  
+- 🔁 the system continues with the existing design  
 
 ---
 
-## Rollback and Reversibility
+## 🔁 Rollback and Reversibility
 
-- All design changes must be reversible
-- Previous configurations are archived
-- Rollback can be triggered manually or automatically
+- 🔁 all design changes must be reversible  
+- 🗃 previous configurations are archived  
+- ⏪ rollback can be triggered manually or automatically  
 
-No irreversible updates are permitted.
-
----
-
-## Timing and Frequency Constraints
-
-- Design Recovery is **event-driven or periodic**
-- Continuous or high-frequency invocation is prohibited
-- Minimum recovery interval must be enforced
-
-This prevents design oscillation or instability.
+🚫 No irreversible updates are permitted.
 
 ---
 
-## Failure Handling
+## ⏱ Timing and Frequency Constraints
+
+- Design Recovery is **event-driven or periodic**  
+- 🚫 continuous or high-frequency invocation is prohibited  
+- ⏳ a minimum recovery interval must be enforced  
+
+This prevents design oscillation and instability.
+
+---
+
+## ⚠ Failure Handling
 
 If Design Recovery Control fails or produces no valid proposal:
 
-- The system remains under PID and FSM control
-- Existing fallback or safe modes remain active
-- No degraded behavior is worsened by DRC
+- ⏱ PID and FSM remain in full control  
+- 🛡 existing fallback or safe modes remain active  
+- 🚫 no degraded behavior is worsened by DRC  
+
+DRC failure must be **fail-safe and non-intrusive**.
 
 ---
 
-## Design Intent Freeze
+## 🔒 Design Intent Freeze
 
 This workflow **fixes the operational semantics**  
 of Design Recovery Control.
 
 Future extensions may add tooling or examples,  
 but **must not alter the discrete, supervised, and non-real-time nature**  
-of this workflow.
+of this process.
 
 ---
 
-End of document.
+*End of document.*
