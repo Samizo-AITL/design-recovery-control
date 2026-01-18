@@ -3,9 +3,9 @@ title: "design-recovery-control"
 description: "recovering violated control design assumptions"
 ---
 
-# Design Recovery Control
+# 🛠 Design Recovery Control
 
-## Overview
+## 📌 Overview
 
 **Design Recovery Control (DRC)** is a control architecture that addresses *system degradation*  
 by **recovering violated control design assumptions**,  
@@ -13,9 +13,9 @@ rather than directly manipulating control inputs or physical systems.
 
 DRC explicitly separates the following layers:
 
-- **Real-time control** — PID  
-- **State and safety supervision** — FSM  
-- **Design recovery and reconfiguration** — LLM  
+- ⏱ **Real-time control** — PID  
+- 🔄 **State and safety supervision** — FSM  
+- 🧠 **Design recovery and reconfiguration** — LLM  
 
 The fundamental premise of DRC is:
 
@@ -24,14 +24,14 @@ The fundamental premise of DRC is:
 
 ---
 
-## Motivation
+## 🎯 Motivation
 
 Conventional control frameworks focus primarily on:
 
-- **Reliability Control**  
+- 🛡 **Reliability Control**  
   → Preventing degradation by reducing physical stress (V–I, temperature, duty cycle)
 
-- **Recovery Control**  
+- 🔁 **Recovery Control**  
   → Restoring output or function via reset, recalibration, or fallback logic
 
 However, many real-world failures occur because:
@@ -39,13 +39,13 @@ However, many real-world failures occur because:
 > **The original control design assumptions drift or collapse over time**,  
 > even when the system remains operational.
 
-**Design Recovery Control explicitly targets this gap.**
+➡️ **Design Recovery Control explicitly targets this gap.**
 
 ---
 
-## Core Concept
+## 🧠 Core Concept
 
-### Layered Control Structure
+### 🧩 Layered Control Structure
 
 ```
 ┌──────────────────────────┐
@@ -59,7 +59,7 @@ However, many real-world failures occur because:
 └──────────────────────────┘
 ```
 
-### What Is Recovered — and What Is Not
+### 🔍 What Is Recovered — and What Is Not
 
 **DRC does NOT recover:**
 
@@ -76,43 +76,43 @@ However, many real-world failures occur because:
 
 ---
 
-## Scope of Design Recovery
+## 📐 Scope of Design Recovery
 
 The LLM is permitted to modify **design-level artifacts only**, including:
 
-- PID gain sets *(Kp, Ki, Kd)* **within predefined bounds**
-- FSM transition conditions and thresholds
-- Operating mode definitions and annotations
+- 🧮 PID gain sets *(Kp, Ki, Kd)* **within predefined bounds**
+- 🔄 FSM transition conditions and thresholds
+- 🗺 Operating mode definitions and annotations
 
 The LLM is **explicitly prohibited** from:
 
-- Injecting or modifying control signals
-- Accessing real-time control loops
-- Altering execution timing or scheduling
-- Bypassing FSM safety guards
-- Performing continuous or autonomous online control
+- 🚫 Injecting or modifying control signals
+- 🚫 Accessing real-time control loops
+- 🚫 Altering execution timing or scheduling
+- 🚫 Bypassing FSM safety guards
+- 🚫 Performing continuous or autonomous online control
 
 All LLM-generated changes must be **explicit, inspectable, and reversible**,  
 and may require **human or system-level approval** before deployment.
 
 ---
 
-## Design Principles
+## 📜 Design Principles
 
-1. **LLM never touches real-time control inputs**
-2. **Safety and stability are enforced exclusively by PID and FSM**
-3. **LLM operates asynchronously and discontinuously**
-4. **All design updates are explicit, inspectable, and reversible**
-5. **Human or system-level approval may gate design changes**
+1. 🔒 **LLM never touches real-time control inputs**
+2. 🛡 **Safety and stability are enforced exclusively by PID and FSM**
+3. ⏳ **LLM operates asynchronously and discontinuously**
+4. 🔍 **All design updates are explicit, inspectable, and reversible**
+5. 👤 **Human or system-level approval may gate design changes**
 
 ---
 
-## Relation to AITL
+## 🔗 Relation to AITL
 
-- **AITL (Adaptive Intelligent Technology Loop)**  
+- 🧠 **AITL (Adaptive Intelligent Technology Loop)**  
   → An architectural pattern for layered intelligent control systems
 
-- **Design Recovery Control**  
+- 🛠 **Design Recovery Control**  
   → A domain-independent *control engineering concept*  
     defining the role and boundaries of the design supervision layer
 
@@ -122,16 +122,16 @@ without binding it to any specific application domain.
 
 ---
 
-## Typical Use Cases
+## 🛠 Typical Use Cases
 
-- Control systems with long-term parameter drift
-- Degraded physical systems (thermal, mechanical, semiconductor, MEMS)
-- Safety-critical systems where LLM real-time control is unacceptable
-- Human-in-the-loop or audit-required control redesign workflows
+- ⏳ Control systems with long-term parameter drift
+- 🧱 Degraded physical systems (thermal, mechanical, semiconductor, MEMS)
+- 🚨 Safety-critical systems where LLM real-time control is unacceptable
+- 👥 Human-in-the-loop or audit-required control redesign workflows
 
 ---
 
-## What This Repository Is NOT
+## 🚫 What This Repository Is NOT
 
 - ❌ An end-to-end LLM controller
 - ❌ A reinforcement learning controller
@@ -139,14 +139,14 @@ without binding it to any specific application domain.
 
 ---
 
-## Repository Scope
+## 📦 Repository Scope
 
 This repository focuses on:
 
-- Concept definition
-- Architectural clarification
-- Boundary and responsibility specification
-- Minimal, illustrative PoC references (non-real-time)
+- 📘 Concept definition
+- 🧩 Architectural clarification
+- 📐 Boundary and responsibility specification
+- 🧪 Minimal, illustrative PoC references (non-real-time)
 
 Domain-specific implementations  
 (inkjet, MEMS, semiconductor, robotics, etc.)  
@@ -154,25 +154,25 @@ are intentionally handled in **separate repositories**.
 
 ---
 
-## Documentation
+## 📚 Documentation
 
-- [Design Variables](docs/design_variables.md)
-- [Design Recovery Workflow](docs/recovery_workflow.md)
-- [Failure Modes](docs/failure_modes.md)
-- [Comparison: DRC vs RL vs LLM Control](docs/comparison_rl_llm_control.md)
-- [FAQ](docs/faq.md)
-- [Audit Checklist](docs/audit_checklist.md)
-- [LLM Prompt Template](docs/llm_prompt_template.md)
-
----
-
-## Proof of Concept (PoC)
-
-- [Minimal Design Proposal PoC (Python)](poc/drc_design_proposal.py)
+- 📘 [Design Variables](docs/design_variables.md)
+- 🔄 [Design Recovery Workflow](docs/recovery_workflow.md)
+- ⚠ [Failure Modes](docs/failure_modes.md)
+- 📊 [Comparison: DRC vs RL vs LLM Control](docs/comparison_rl_llm_control.md)
+- ❓ [FAQ](docs/faq.md)
+- 🧾 [Audit Checklist](docs/audit_checklist.md)
+- 🧠 [LLM Prompt Template](docs/llm_prompt_template.md)
 
 ---
 
-## Design Intent Freeze
+## 🧪 Proof of Concept (PoC)
+
+- 🧩 [Minimal Design Proposal PoC (Python)](poc/drc_design_proposal.py)
+
+---
+
+## 🔒 Design Intent Freeze
 
 This document **fixes the conceptual definition of Design Recovery Control**.
 
